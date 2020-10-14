@@ -78,6 +78,7 @@ void EstadoInicio() {
 /*****************************************************************************/
 void EstadoConfiguracion() {
   M1DHTConf();
+  M1TermistorConf();
   // Leer Datos de EEPROM
   CambiarEstado(estadoMedicion);
 }
@@ -94,29 +95,17 @@ void EstadoEspera() {
 void EstadoMedicion() {
   // Realiza esta tarea cada 10 segundos
   if (millis() - tiempoAnt > 10000) {
-    log(F("(DHT)Tomando datos sensor"), numSensorActual, logDebug);
-    float t = M1LeerTemperatura(numSensorActual);
-    float h = M1LeerHumedad(numSensorActual);
-    // Verifica si se hizo la lectura correcta
-    if (isnan(h) || isnan(t))
-      log(F("(DHT)Error en Lectura de Sensor DHT "), numSensorActual, logError);
-    else
-    {
-      if (h != -1 || t != -1)
-      {
-        // Se imprime el resultado de los valores
-        Serie.print("#S");
-        Serie.print(numSensorActual);
-        Serie.print(",");
-        Serie.print(t);
-        Serie.print(",");
-        Serie.println(h);
-      }
-    }
+    // Se imprime el resultado de los valores
+    Serie.print("#S");
+    Serie.print(numSensorActual);
+    Serie.print(",");
+    Serie.print(LecturaTermistor(numSensorActual));
+    Serie.print(",");
+    Serie.println(0);
     numSensorActual++;
-    if(numSensorActual>totalSensoresDHT){
-      numSensorActual=1;
+    if (numSensorActual > totalSensoresDHT) {
+      numSensorActual = 1;
       tiempoAnt = millis();
-    }      
+    }
   }
 }

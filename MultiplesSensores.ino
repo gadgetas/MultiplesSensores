@@ -30,6 +30,10 @@ const String numSerie="000001";
 #include "DHT.h"          // 1.3.10 - M1DHT
 // Adafruit Unified Sensor Lib: https://github.com/adafruit/Adafruit_Sensor
 
+// Librería con el módulo Temperatura y Humedad del Termistor
+// https://github.com/panStamp/thermistor
+#include "thermistor.h"   // 1.03 Version
+
 /******************************************************************************/
 // Definimos puerto serial para Comunicación
 #define Serie Serial
